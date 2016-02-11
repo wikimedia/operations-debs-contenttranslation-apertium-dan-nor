@@ -2,14 +2,11 @@
 ## Makefile for Danish--Norwegian
 ###############################################################################
 
-VERSION=1.0.0
+VERSION=1.2.2
 LANG1=dan
 LANG2=nor
 LANG2n=nno
 LANG2b=nob
-
-# If --with-lang specified, always make dependencies first:
-SUBDIRS=$(AP_SUBDIRS)
 
 # dan-nor
 PREFIX1=$(LANG1)-$(LANG2)
@@ -33,12 +30,12 @@ TARGETS_COMMON = \
       $(PREFIX1b).autogen.bin \
       $(PREFIX1b).autolex.bin \
       $(PREFIX1b).automorf.bin \
-      $(PREFIX1b).t1x.bin \
+      $(PREFIX1b).t1x.bin $(PREFIX1b).t2x.bin $(PREFIX1b).t3x.bin \
       $(PREFIX1n).autobil.bin \
       $(PREFIX1n).autogen.bin \
       $(PREFIX1n).autolex.bin \
       $(PREFIX1n).automorf.bin \
-      $(PREFIX1n).t1x.bin \
+      $(PREFIX1n).t1x.bin $(PREFIX1n).t2x.bin $(PREFIX1n).t3x.bin \
       $(PREFIX2n).prob \
       $(PREFIX2b).prob \
       $(PREFIX2b).automorf.bin \
@@ -102,11 +99,11 @@ $(PREFIX2n).prob: $(AP_SRC2n)/$(LANG2n).prob
 	cp $< $@
 
 ###############################################################################
-## Disambiguation rules 
+## Disambiguation rules
 ###############################################################################
 
 $(PREFIX1).rlx.bin: $(AP_SRC1)/apertium-$(LANG1).$(LANG1).rlx
-	cg-comp $< $@ 
+	cg-comp $< $@
 
 $(PREFIX2b).rlx.bin: $(AP_SRC2b)/apertium-$(LANG2b).$(LANG2b).rlx
 	cg-comp $< $@
@@ -136,12 +133,15 @@ $(PREFIX2n).autolex.bin: $(BASENAME).$(PREFIX2n).lrx
 ###############################################################################
 
 $(PREFIX1b).autobil.bin: $(BASENAME).$(PREFIX1).dix
+	apertium-validate-dictionary $<
 	lt-comp --var-right=nob lr $< $@
 
 $(PREFIX1n).autobil.bin: $(BASENAME).$(PREFIX1).dix
+	apertium-validate-dictionary $<
 	lt-comp --var-right=nno lr $< $@
 
 $(PREFIX2).autobil.bin: $(BASENAME).$(PREFIX1).dix
+	apertium-validate-dictionary $<
 	lt-comp rl $< $@
 
 
@@ -153,28 +153,34 @@ $(PREFIX1b).t1x.bin: $(BASENAME).$(PREFIX1b).t1x
 	apertium-validate-transfer $<
 	apertium-preprocess-transfer $< $@
 
+$(PREFIX1b).t2x.bin: $(BASENAME).$(PREFIX1b).t2x
+	apertium-validate-interchunk $<
+	apertium-preprocess-transfer $< $@
+
+$(PREFIX1b).t3x.bin: $(BASENAME).$(PREFIX1b).t3x
+	apertium-validate-postchunk $<
+	apertium-preprocess-transfer $< $@
+
+
 $(PREFIX1n).t1x.bin: $(BASENAME).$(PREFIX1n).t1x
 	apertium-validate-transfer $<
 	apertium-preprocess-transfer $< $@
+
+$(PREFIX1n).t2x.bin: $(BASENAME).$(PREFIX1n).t2x
+	apertium-validate-interchunk $<
+	apertium-preprocess-transfer $< $@
+
+$(PREFIX1n).t3x.bin: $(BASENAME).$(PREFIX1n).t3x
+	apertium-validate-postchunk $<
+	apertium-preprocess-transfer $< $@
+
 
 
 $(PREFIX2).t1x.bin: $(BASENAME).$(PREFIX2).t1x
 	apertium-validate-transfer $<
 	apertium-preprocess-transfer $< $@
 
-# Not used:
-# $(PREFIX2).t2x.bin: $(BASENAME).$(PREFIX2).t2x
-# 	apertium-validate-interchunk $<
-# 	apertium-preprocess-transfer $< $@
 
-
-
-###############################################################################
-## Translation modes
-###############################################################################
-
-# All modes are created by the same goal, listing several will just give problems with make -j2
-noinst_DATA=modes/$(PREFIX1b).mode
 
 ###############################################################################
 ## Distribution
@@ -187,6 +193,10 @@ EXTRA_DIST=$(BASENAME).$(PREFIX1).dix \
 	   $(BASENAME).$(PREFIX2n).lrx \
 	   $(BASENAME).$(PREFIX1n).t1x \
 	   $(BASENAME).$(PREFIX1b).t1x \
+	   $(BASENAME).$(PREFIX1n).t2x \
+	   $(BASENAME).$(PREFIX1b).t2x \
+	   $(BASENAME).$(PREFIX1n).t3x \
+	   $(BASENAME).$(PREFIX1b).t3x \
 	   $(BASENAME).$(PREFIX2).t1x \
 	   $(BASENAME).$(PREFIX2).t2x \
 	   $(BASENAME).$(LANG1).acx \
@@ -202,8 +212,15 @@ apertium_dan_nordir=$(prefix)/share/apertium/apertium-$(PREFIX1)/
 apertium_dan_nor_DATA=$(TARGETS_COMMON) \
 	$(BASENAME).$(PREFIX1n).t1x \
 	$(BASENAME).$(PREFIX1b).t1x \
+	$(BASENAME).$(PREFIX1n).t2x \
+	$(BASENAME).$(PREFIX1b).t2x \
+	$(BASENAME).$(PREFIX1n).t3x \
+	$(BASENAME).$(PREFIX1b).t3x \
 	$(BASENAME).$(PREFIX2).t1x \
 	$(BASENAME).$(PREFIX2).t2x
+
+# All modes are created by the same goal, listing several will just give problems with make -j2
+noinst_DATA=modes/$(PREFIX1b).mode
 
 install-data-local: install-modes
 
@@ -212,7 +229,19 @@ install-data-local: install-modes
 ## Cleanup
 ###############################################################################
 
-CLEANFILES = $(TARGETS_COMMON) 
-clean-local: 
+CLEANFILES = $(TARGETS_COMMON)
+clean-local:
 	-rm -rf .deps modes
 
+###############################################################################
+## Test
+###############################################################################
+
+test: all
+	echo "Såg ho ikkje orda?" | apertium -d . nno-dan | tee .test-mt
+	@echo "Så hun ikke ordene?" > .test-ref
+	@diff .test-ref .test-mt
+	echo "Jeg har åler i min luftputebåt" | apertium -d . nob-dan | tee .test-mt
+	@echo "Jeg har åle i min luftpudebåd" > .test-ref
+	@diff .test-ref .test-mt
+	@rm .test-ref .test-mt

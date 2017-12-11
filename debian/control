@@ -10,7 +10,7 @@ Build-Depends: apertium-dan (>= 0.5.0~r67099),
                apertium-nno (>= 0.7.0~r67099),
                apertium-nob (>= 0.7.0~r67099),
                autotools-dev,
-               cg3,
+               cg3 (>= 1.0.0~r12254),
                debhelper (>= 9),
                dh-autoreconf,
                gawk,
@@ -24,7 +24,7 @@ Package: apertium-dan-nor
 Architecture: all
 Depends: apertium (>= 3.4),
          apertium-lex-tools,
-         cg3,
+         cg3 (>= 1.0.0~r12254),
          ${misc:Depends},
          ${shlibs:Depends}
 Provides: apertium-nor-dan

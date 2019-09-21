@@ -4,23 +4,42 @@
     <!-- compound lhs's are never genitive: -->
     <def-cat n="ncmp">
       <cat-item tags="n.*.cmp"/>
+      <cat-item tags="n.*.cmp.guio"/>
+      <cat-item tags="np.*.cmp"/>
+      <cat-item tags="np.*.cmp.guio"/>
     </def-cat>
     <def-cat n="nind">
       <cat-item tags="n.*.ind.*"/>
+      <cat-item tags="n.*.ind.gen"/>
     </def-cat>
-    <!-- n should preferably not include compound-only-L's -->
-    <def-cat n="n">
-      <cat-item tags="n.*"/>
-      <cat-item tags="n.*.gen"/>
+    <!-- n does not include compound lhs's: -->
+    <def-cat n="n_np">
       <cat-item tags="n.*.cmp-split"/>
-    </def-cat>
-    <!-- is this ever a compound-lhs? TODO -->
-    <def-cat n="np">
-      <cat-item tags="np.*"/>
-    </def-cat>
-    <def-cat n="nom">
-      <cat-item tags="n."/>
-      <cat-item tags="np.*"/>
+      <cat-item tags="n.*.def"/>
+      <cat-item tags="n.*.ind"/>
+      <cat-item tags="n.*.acr"/>
+      <cat-item tags="n.*.sp"/>
+      <cat-item tags="n.*.gen"/>
+      <cat-item tags="np.*.cmp-split"/>
+      <cat-item tags="np.*.gen"/>
+      <cat-item tags="np.*.gen.guio"/>
+      <cat-item tags="np.top"/>
+      <cat-item tags="np.top.f"/>
+      <cat-item tags="np.top.m"/>
+      <cat-item tags="np.top.nt"/>
+      <cat-item tags="np.org"/>
+      <cat-item tags="np.org.f"/>
+      <cat-item tags="np.org.m"/>
+      <cat-item tags="np.org.nt"/>
+      <cat-item tags="np.ant"/>
+      <cat-item tags="np.ant.f"/>
+      <cat-item tags="np.ant.m"/>
+      <cat-item tags="np.ant.nt"/>
+      <cat-item tags="np.cgguess"/>
+      <cat-item tags="np.guess"/>
+      <cat-item tags="np.cog"/>
+      <cat-item tags="np.al"/>
+      <cat-item tags="np.attr"/>
     </def-cat>
     <def-cat n="nacr">
       <cat-item tags="n.acr"/>
@@ -32,11 +51,25 @@
     <def-cat n="ngen">
       <cat-item tags="n.*.*.*.gen"/>
     </def-cat>
+    <def-cat n="nind_indsplit">
+      <cat-item tags="n.*.*.ind"/>
+      <cat-item tags="n.*.*.ind.cmp-split"/>
+    </def-cat>
     <def-cat n="det">
       <cat-item tags="det.*"/>
     </def-cat>
+    <def-cat n="detqnt">
+      <cat-item tags="det.qnt.*"/>
+    </def-cat>
+    <def-cat n="remspc">
+      <cat-item tags="sent.clb.remspc"/>
+    </def-cat>
     <def-cat n="prn">
       <cat-item tags="prn.*"/>
+    </def-cat>
+    <def-cat n="cnjcoo_nkon">
+      <cat-item tags="cnjcoo.@nkon"/>
+      <cat-item tags="cnjcoo.clb.@nkon"/>
     </def-cat>
     <def-cat n="detpos">
       <cat-item tags="det.pos.*"/>
@@ -50,7 +83,7 @@
     </def-cat>
     <def-cat n="posgen">
       <cat-item tags="det.pos.*"/>
-      <cat-item tags="n.*.*.*.gen"/>
+      <cat-item tags="n.*.gen"/>
     </def-cat>
     <def-cat n="adj">
       <cat-item tags="adj.*"/>
@@ -101,18 +134,11 @@
       <cat-item tags="vblex.*"/>
     </def-cat>
 
-    <def-cat n="supn_pp">
-      <cat-item lemma="komma" tags="vblex.supn.*"/>
-      <cat-item tags="vbser.supn.*"/>
-      <cat-item tags="vbhaver.supn.*"/>
-      <cat-item tags="vblex.supn.*"/>
-      <cat-item tags="vbmod.supn.*"/>
-      <cat-item tags="vaux.supn.*"/>
-      <cat-item tags="vbser.pp.*"/>
-      <cat-item tags="vbhaver.pp.*"/>
+    <def-cat n="pp">
+      <cat-item tags="vblex.pp"/>
       <cat-item tags="vblex.pp.*"/>
-      <cat-item tags="vbmod.pp.*"/>
-      <cat-item tags="vaux.pp.*"/>
+      <cat-item tags="aux.pp"/>
+      <cat-item tags="aux.pp.*"/>
     </def-cat>
 
     <def-cat n="vblexpp">
@@ -137,12 +163,16 @@
     </def-cat>
 
     <def-cat n="vaux">
-      <cat-item tags="vbser.pres.*"/>
-      <cat-item tags="vbser.past.*"/>
-      <cat-item tags="vbhaver.*"/>
       <cat-item lemma="ha" tags="vblex.*"/>
-      <cat-item lemma="vara¹" tags="vblex.pres.*"/>
-      <cat-item lemma="vara¹" tags="vblex.past.*"/>
+      <cat-item lemma="være" tags="vblex.*"/>
+      <cat-item lemma="vere" tags="vblex.*"/>
+      <cat-item lemma="bli" tags="vblex.*"/>
+      <cat-item lemma="verte" tags="vblex.*"/>
+    </def-cat>
+
+    <def-cat n="pasvaux">
+      <cat-item lemma="bli" tags="vblex.*"/>
+      <cat-item lemma="verte" tags="vblex.*"/>
     </def-cat>
 
 
@@ -152,7 +182,6 @@
       <attr-item tags="n"/>
       <attr-item tags="n.acr"/>
       <attr-item tags="np"/>
-      <attr-item tags="np.top"/>
     </def-attr>
     <def-attr n="persona">
       <attr-item tags="p1"/>
@@ -178,6 +207,9 @@
       <attr-item tags="pasv"/>
       <attr-item tags="actv"/>
     </def-attr>
+    <def-attr n="a_remspc">
+      <attr-item tags="remspc"/>
+    </def-attr>
     <def-attr n="a_det">
       <attr-item tags="det"/>
       <attr-item tags="det.emph"/>
@@ -187,22 +219,16 @@
       <attr-item tags="det.qnt.neg"/>
       <attr-item tags="det.pos"/>
     </def-attr>
+    <def-attr n="a_date">
+      <attr-item tags="date"/>
+    </def-attr>
 
     <def-attr n="a_adj">
       <attr-item tags="adj"/>
       <attr-item tags="adj.pp"/>
       <attr-item tags="adj.pprs"/>
-      <attr-item tags="adj.pst"/>
-      <attr-item tags="adj.comp"/>
-      <attr-item tags="adj.sup"/>
-      <attr-item tags="adj.ord.pst"/>
-      <attr-item tags="adj.ord.comp"/>
-      <attr-item tags="adj.ord.sup"/>
-
+      <attr-item tags="adj.ord"/>
       <attr-item tags="adj.sint"/>
-      <attr-item tags="adj.sint.pst"/>
-      <attr-item tags="adj.sint.comp"/>
-      <attr-item tags="adj.sint.sup"/>
     </def-attr>
 
     <def-attr n="grau">
@@ -215,10 +241,10 @@
       <attr-item tags="m"/>
       <attr-item tags="mf"/>
       <attr-item tags="nt"/>
+      <attr-item tags="fn"/>
+      <attr-item tags="f"/>
       <attr-item tags="ut"/>
       <attr-item tags="un"/>
-      <attr-item tags="f"/>
-      <attr-item tags="fn"/>
       <attr-item tags="GD"/>
     </def-attr>
     <def-attr n="nbr">
@@ -252,6 +278,7 @@
   <section-def-vars>
     <def-var n="gen-prep"/>
     <def-var n="caseFirstWord"/>
+    <def-var n="caseSecondWord"/>
     <def-var n="c_name"         c="chunk name"/>
     <def-var n="ntags"/>
     <def-var n="blank"/>
@@ -416,43 +443,32 @@ Avoid these in <vblex><inf><pasv>  Make them blive<inf><pres><actv> verb<pp>
       <let><var n="ntags"/><clip pos="1" side="tl" part="tags"/></let>
     </def-macro>
 
-    <def-macro n="switch_cases" npar="2">
-      <choose>
-        <when>
-          <test><not>
-            <and>
-              <equal><clip pos="2" side="tl" part="lemh"/><lit v="De"/></equal>
-              <equal><clip pos="2" side="tl" part="a_det"/><lit-tag v="det.pos"/></equal>
-              <equal><clip pos="2" side="tl" part="persona"/><lit-tag v="p2"/></equal>
-            </and>
-          </not></test>
-          <let><var n="caseFirstWord"/><get-case-from pos="1"><clip pos="1" side="tl" part="lemh"/></get-case-from></let>
-          <let><clip pos="1" side="tl" part="lemh"/><get-case-from pos="2"><clip pos="1" side="tl" part="lemh"/></get-case-from></let>
-          <modify-case><clip pos="2" side="tl" part="lemh"/><var n="caseFirstWord"/></modify-case>
-        </when>
-      </choose>
-    </def-macro>
-
-    <def-macro n="set_caseFirstWord" npar="1">
+    <def-macro n="set_caseFirstWord" npar="1"
+               c="Downcases the argument, unless np">
+      <!-- TODO: Put a marker for acronyms where we don't want to copy case from them; then drop the tag -->
       <let><var n="caseFirstWord"/><get-case-from pos="1"><lit v="aa"/></get-case-from></let>
-      <modify-case><clip pos="1" side="tl" part="lemh"/><lit v="aa"/></modify-case>
+      <choose><when>
+        <test><not><equal><clip pos="1" side="tl" part="a_nom"/><lit-tag v="np"/></equal></not></test>
+        <modify-case><clip pos="1" side="tl" part="lemh"/><lit v="aa"/></modify-case>
+      </when></choose>
     </def-macro>
 
-    <def-macro n="set_caseFirstWord2" npar="2">
-      <!-- arg.1: possessed noun. arg.2: det.pos, gives typographic case -->
-      <choose>
-        <when>
-          <test><not>
-            <and>
-              <equal><clip pos="2" side="tl" part="lemh"/><lit v="De"/></equal>
-              <equal><clip pos="2" side="tl" part="a_det"/><lit-tag v="det.pos"/></equal>
-              <equal><clip pos="2" side="tl" part="persona"/><lit-tag v="p2"/></equal>
-            </and>
-          </not></test>
-          <let><var n="caseFirstWord"/><get-case-from pos="2"><lit v="aa"/></get-case-from></let>
-          <modify-case><clip pos="1" side="tl" part="lemh"/><lit v="aa"/></modify-case>
-        </when>
-      </choose>
+    <def-macro n="set_caseFirstWord2" npar="2"
+               c="arg1: first word, arg2: second word
+                  Downcases arg1, unless np">
+      <let><var n="caseFirstWord"/><get-case-from pos="1"><lit v="aa"/></get-case-from></let>
+      <let><var n="caseSecondWord"/><get-case-from pos="2"><lit v="aa"/></get-case-from></let>
+      <choose><when>
+        <test><and>
+          <equal><var n="caseFirstWord"/><lit v="AA"/></equal>
+          <not><equal><var n="caseSecondWord"/><lit v="AA"/></equal></not>
+        </and></test>
+        <let><var n="caseFirstWord"/><lit v="Aa"/></let> <!-- avoid applying shouting to whole chunk if only first word shouts -->
+      </when></choose>
+      <choose><when>
+        <test><not><equal><clip pos="1" side="tl" part="a_nom"/><lit-tag v="np"/></equal></not></test>
+        <modify-case><clip pos="1" side="tl" part="lemh"/><lit v="aa"/></modify-case>
+      </when></choose>
     </def-macro>
 
     <!-- Macros which set concordance variables: -->
@@ -518,8 +534,8 @@ Avoid these in <vblex><inf><pasv>  Make them blive<inf><pres><actv> verb<pp>
       <choose>
         <when>
           <test><and>
-            <begins-with><clip pos="1" side="sl" part="a_adj"/><lit-tag v="adj.sint"/></begins-with>
-            <not><begins-with><clip pos="1" side="tl" part="a_adj"/><lit-tag v="adj.sint"/></begins-with></not>
+            <equal><clip pos="1" side="sl" part="a_adj"/><lit-tag v="adj.sint"/></equal>
+            <not><equal><clip pos="1" side="tl" part="a_adj"/><lit-tag v="adj.sint"/></equal></not>
             <or>
               <equal><clip pos="1" side="tl" part="grau"/><lit-tag v="comp"/></equal>
               <equal><clip pos="1" side="tl" part="grau"/><lit-tag v="sup"/></equal>
@@ -551,10 +567,16 @@ Avoid these in <vblex><inf><pasv>  Make them blive<inf><pres><actv> verb<pp>
             </concat>
           </let>
 
-          <let>
-            <clip pos="1" side="tl" part="tags"/>
-            <lit-tag v="adj.pst.un.pl.ind"/>
-          </let>
+
+          <choose>
+            <when>
+              <test><equal><clip pos="1" side="sl" part="art"/><lit-tag v="def"/></equal></test>
+              <let><clip pos="1" side="tl" part="tags"/><lit-tag v="adj.pst.un.sp.def"/></let>
+            </when>
+            <otherwise>
+              <let><clip pos="1" side="tl" part="tags"/><lit-tag v="adj.pst.nt.sg.ind"/></let>
+            </otherwise>
+          </choose>
         </when>
 
         <otherwise>
@@ -567,21 +589,21 @@ Avoid these in <vblex><inf><pasv>  Make them blive<inf><pres><actv> verb<pp>
     </def-macro>
 
     <def-macro n="set_grau_aux2" npar="2"
-               c="arg.1: adjective arg.2: adjective
+               c="arg.1: adjective arg.2: adjective (in order of appearance)
                   When translating from «meir/mest» non-sint to sint, remove «meir/mest», empty grau_aux-variable.
                   When translating from (first arg) sint to non-sint, put «meir/mest» in grau_aux-variable.
 
                   Assumes c_name has been set!">
       <choose>
-        <when>
+        <when c="mest moderne→modernaste (removing mest/meir)">
           <test><and>
-            <equal><clip pos="1" side="tl" part="lemh"/><lit v="mycken"/></equal>
+            <equal caseless="yes"><clip pos="1" side="tl" part="lemh"/><lit v="meget"/></equal>
             <or>
               <equal><clip pos="1" side="tl" part="grau"/><lit-tag v="comp"/></equal>
               <equal><clip pos="1" side="tl" part="grau"/><lit-tag v="sup"/></equal>
             </or>
-            <not><begins-with><clip pos="2" side="sl" part="a_adj"/><lit-tag v="adj.sint"/></begins-with></not>
-            <begins-with><clip pos="2" side="tl" part="a_adj"/><lit-tag v="adj.sint"/></begins-with>
+            <not><equal><clip pos="2" side="sl" part="a_adj"/><lit-tag v="adj.sint"/></equal></not>
+            <equal><clip pos="2" side="tl" part="a_adj"/><lit-tag v="adj.sint"/></equal>
           </and></test>
           <!-- The second adj is synthetic, so copy tags from first adj: -->
           <let><clip pos="2" side="tl" part="tags"/><clip pos="1" side="tl" part="tags"/></let>
@@ -596,17 +618,22 @@ Avoid these in <vblex><inf><pasv>  Make them blive<inf><pres><actv> verb<pp>
           <!-- and fix tags on the second adj (but no new aux if only second adj is non-pst; TODO better) -->
           <choose><when>
             <test><and>
-              <begins-with><clip pos="2" side="sl" part="a_adj"/><lit-tag v="adj.sint"/></begins-with>
-              <not><begins-with><clip pos="2" side="tl" part="a_adj"/><lit-tag v="adj.sint"/></begins-with></not>
+              <equal><clip pos="2" side="sl" part="a_adj"/><lit-tag v="adj.sint"/></equal>
+              <not><equal><clip pos="2" side="tl" part="a_adj"/><lit-tag v="adj.sint"/></equal></not>
               <or>
                 <equal><clip pos="2" side="tl" part="grau"/><lit-tag v="comp"/></equal>
                 <equal><clip pos="2" side="tl" part="grau"/><lit-tag v="sup"/></equal>
               </or>
             </and></test>
-            <let>
-              <clip pos="2" side="tl" part="tags"/>
-              <lit-tag v="adj.pst.un.pl.ind"/>
-            </let>
+            <choose>
+              <when>
+                <test><equal><clip pos="2" side="sl" part="art"/><lit-tag v="def"/></equal></test>
+                <let><clip pos="2" side="tl" part="tags"/><lit-tag v="adj.pst.un.sp.def"/></let>
+              </when>
+              <otherwise>
+                <let><clip pos="2" side="tl" part="tags"/><lit-tag v="adj.pst.nt.sg.ind"/></let>
+              </otherwise>
+            </choose>
           </when></choose>
         </otherwise>
       </choose>
@@ -647,7 +674,10 @@ Avoid these in <vblex><inf><pasv>  Make them blive<inf><pres><actv> verb<pp>
         <!-- c_name setting after set_grau_aux since adv first in chunk -->
         <call-macro n="set_gender1.adj"><with-param pos="2"/></call-macro>
         <call-macro n="set_grau_aux1"><with-param pos="2"/></call-macro>
-        <call-macro n="set_caseFirstWord"><with-param pos="1"/></call-macro>
+        <call-macro n="set_caseFirstWord2">
+          <with-param pos="1"/>
+          <with-param pos="2"/>
+        </call-macro>
 
         <choose>
           <when>
@@ -682,7 +712,7 @@ Avoid these in <vblex><inf><pasv>  Make them blive<inf><pres><actv> verb<pp>
     <!-- N+ -->
     <rule comment="N">
       <pattern>
-        <pattern-item n="n"/>
+        <pattern-item n="n_np"/>
       </pattern>
       <action>
         <call-macro n="set_caseFirstWord"><with-param pos="1"/></call-macro>
@@ -699,10 +729,13 @@ Avoid these in <vblex><inf><pasv>  Make them blive<inf><pres><actv> verb<pp>
                    Remove the space that pretransfer added">
       <pattern>
         <pattern-item n="ncmp"/>
-        <pattern-item n="n"/>
+        <pattern-item n="n_np"/>
       </pattern>
       <action>
-        <call-macro n="set_caseFirstWord"><with-param pos="1"/></call-macro>
+        <call-macro n="set_caseFirstWord2">
+          <with-param pos="1"/>
+          <with-param pos="2"/>
+        </call-macro>
         <call-macro n="set_ntags"><with-param pos="2"/></call-macro>
         <out>
           <chunk name="n_n" case="caseFirstWord">
@@ -717,10 +750,13 @@ Avoid these in <vblex><inf><pasv>  Make them blive<inf><pres><actv> verb<pp>
       <pattern>
         <pattern-item n="ncmp"/>
         <pattern-item n="ncmp"/>
-        <pattern-item n="n"/>
+        <pattern-item n="n_np"/>
       </pattern>
       <action>
-        <call-macro n="set_caseFirstWord"><with-param pos="1"/></call-macro>
+        <call-macro n="set_caseFirstWord2">
+          <with-param pos="1"/>
+          <with-param pos="2"/>
+        </call-macro>
         <call-macro n="set_ntags"><with-param pos="3"/></call-macro>
         <out>
           <chunk name="n_n_n" case="caseFirstWord">
@@ -737,10 +773,13 @@ Avoid these in <vblex><inf><pasv>  Make them blive<inf><pres><actv> verb<pp>
         <pattern-item n="ncmp"/>
         <pattern-item n="ncmp"/>
         <pattern-item n="ncmp"/>
-        <pattern-item n="n"/>
+        <pattern-item n="n_np"/>
       </pattern>
       <action>
-        <call-macro n="set_caseFirstWord"><with-param pos="1"/></call-macro>
+        <call-macro n="set_caseFirstWord2">
+          <with-param pos="1"/>
+          <with-param pos="2"/>
+        </call-macro>
         <call-macro n="set_ntags"><with-param pos="4"/></call-macro>
         <out>
           <chunk name="n_n_n_n" case="caseFirstWord">
@@ -753,17 +792,94 @@ Avoid these in <vblex><inf><pasv>  Make them blive<inf><pres><actv> verb<pp>
         </out>
       </action>
     </rule>
+
+    <!-- N og N: -->
+    <rule comment="CNJCOO_NKON
+                   Just drop the @-tag">
+      <pattern>
+        <pattern-item n="cnjcoo_nkon"/>
+      </pattern>
+      <action>
+        <out>
+          <chunk name="default">
+            <tags>
+              <tag><clip pos="1" side="tl" part="tags"/></tag>
+            </tags>
+            <lu><clip pos="1" side="tl" part="lemh"/><lit-tag v="cnjcoo"/></lu>
+          </chunk>
+        </out>
+      </action>
+    </rule>
+    <rule comment="NIND CNJCOO NIND: (kvinners) stemme og deltakelse → stemma og deltakinga til kvinner
+                   Chunk the coordination for genitive-movement in t2x">
+      <!-- TODO: avoid «landets ambassader og konsulater i utlandet» -->
+      <pattern>
+        <pattern-item n="nind_indsplit"/>
+        <pattern-item n="cnjcoo_nkon"/>
+        <pattern-item n="nind_indsplit"/>
+      </pattern>
+      <action>
+        <call-macro n="set_caseFirstWord2">
+          <with-param pos="1"/>
+          <with-param pos="2"/>
+        </call-macro>
+        <out>
+          <chunk name="n_cnjcoo_n" case="caseFirstWord">
+            <tags>
+              <tag><clip pos="3" side="tl" part="tags"/></tag>
+            </tags>
+            <lu><clip pos="1" side="tl" part="whole"/></lu>
+            <b pos="1"/>
+            <lu><clip pos="2" side="tl" part="lemh"/><lit-tag v="cnjcoo"/></lu>
+            <b pos="2"/>
+            <lu><clip pos="3" side="tl" part="whole"/></lu>
+          </chunk>
+        </out>
+      </action>
+    </rule>
+    <rule comment="NIND CNJCOO NCMP N: (kvinners) kontroll- og konstitusjonskomité → kontroll- og konstitusjonskomitéen til kvinner
+                   Chunk the coordination for genitive-movement in t2x">
+      <pattern>
+        <pattern-item n="nind_indsplit"/>
+        <pattern-item n="cnjcoo_nkon"/>
+        <pattern-item n="ncmp"/>
+        <pattern-item n="n_np"/>
+      </pattern>
+      <action>
+        <call-macro n="set_caseFirstWord2">
+          <with-param pos="1"/>
+          <with-param pos="2"/>
+        </call-macro>
+        <out>
+          <chunk name="n_cnjcoo_n_n" case="caseFirstWord">
+            <tags>
+              <tag><clip pos="4" side="tl" part="tags"/></tag>
+            </tags>
+            <lu><clip pos="1" side="tl" part="whole"/></lu>
+            <b pos="1"/>
+            <lu><clip pos="2" side="tl" part="lemh"/><lit-tag v="cnjcoo"/></lu>
+            <b pos="2"/>
+            <lu><clip pos="3" side="tl" part="whole"/></lu>
+            <lu><clip pos="4" side="tl" part="whole"/></lu>
+          </chunk>
+        </out>
+      </action>
+    </rule>
+
     <!-- ADJ N+ -->
     <rule comment="ADJ N">
       <pattern>
         <pattern-item n="adj"/>
-        <pattern-item n="n"/>
+        <pattern-item n="n_np"/>
       </pattern>
       <action>
         <let><var n="c_name"/><lit v="adj_n"/></let>
         <call-macro n="set_gender2.n.adj"><with-param pos="2"/><with-param pos="1"/></call-macro>
         <call-macro n="set_grau_aux1"><with-param pos="1"/></call-macro>
-        <call-macro n="set_caseFirstWord"><with-param pos="1"/></call-macro>
+        <call-macro n="set_caseFirstWord2">
+          <with-param pos="1"/>
+          <with-param pos="2"/>
+        </call-macro>
         <call-macro n="set_ntags"><with-param pos="2"/></call-macro>
         <out>
           <chunk namefrom="c_name" case="caseFirstWord">
@@ -784,13 +900,16 @@ Avoid these in <vblex><inf><pasv>  Make them blive<inf><pres><actv> verb<pp>
       <pattern>
         <pattern-item n="adj"/>
         <pattern-item n="ncmp"/>
-        <pattern-item n="n"/>
+        <pattern-item n="n_np"/>
       </pattern>
       <action>
         <let><var n="c_name"/><lit v="adj_n_n"/></let>
         <call-macro n="set_gender2.n.adj"><with-param pos="3"/><with-param pos="1"/></call-macro>
         <call-macro n="set_grau_aux1"><with-param pos="1"/></call-macro>
-        <call-macro n="set_caseFirstWord"><with-param pos="1"/></call-macro>
+        <call-macro n="set_caseFirstWord2">
+          <with-param pos="1"/>
+          <with-param pos="2"/>
+        </call-macro>
         <call-macro n="set_ntags"><with-param pos="3"/></call-macro>
         <out>
           <chunk namefrom="c_name" case="caseFirstWord">
@@ -813,13 +932,16 @@ Avoid these in <vblex><inf><pasv>  Make them blive<inf><pres><actv> verb<pp>
         <pattern-item n="adj"/>
         <pattern-item n="ncmp"/>
         <pattern-item n="ncmp"/>
-        <pattern-item n="n"/>
+        <pattern-item n="n_np"/>
       </pattern>
       <action>
         <let><var n="c_name"/><lit v="adj_n_n_n"/></let>
         <call-macro n="set_gender2.n.adj"><with-param pos="4"/><with-param pos="1"/></call-macro>
         <call-macro n="set_grau_aux1"><with-param pos="1"/></call-macro>
-        <call-macro n="set_caseFirstWord"><with-param pos="1"/></call-macro>
+        <call-macro n="set_caseFirstWord2">
+          <with-param pos="1"/>
+          <with-param pos="2"/>
+        </call-macro>
         <call-macro n="set_ntags"><with-param pos="4"/></call-macro>
         <out>
           <chunk namefrom="c_name" case="caseFirstWord">
@@ -844,13 +966,16 @@ Avoid these in <vblex><inf><pasv>  Make them blive<inf><pres><actv> verb<pp>
         <pattern-item n="ncmp"/>
         <pattern-item n="ncmp"/>
         <pattern-item n="ncmp"/>
-        <pattern-item n="n"/>
+        <pattern-item n="n_np"/>
       </pattern>
       <action>
         <let><var n="c_name"/><lit v="adj_n_n_n_n"/></let>
         <call-macro n="set_gender2.n.adj"><with-param pos="5"/><with-param pos="1"/></call-macro>
         <call-macro n="set_grau_aux1"><with-param pos="1"/></call-macro>
-        <call-macro n="set_caseFirstWord"><with-param pos="1"/></call-macro>
+        <call-macro n="set_caseFirstWord2">
+          <with-param pos="1"/>
+          <with-param pos="2"/>
+        </call-macro>
         <call-macro n="set_ntags"><with-param pos="5"/></call-macro>
         <out>
           <chunk namefrom="c_name" case="caseFirstWord">
@@ -875,14 +1000,17 @@ Avoid these in <vblex><inf><pasv>  Make them blive<inf><pres><actv> verb<pp>
       <pattern>
         <pattern-item n="adj"/>
         <pattern-item n="adj"/>
-        <pattern-item n="n"/>
+        <pattern-item n="n_np"/>
       </pattern>
       <action>
         <let><var n="c_name"/><lit v="adj_adj_n"/></let>
         <call-macro n="set_gender2.n.adj"><with-param pos="3"/><with-param pos="1"/></call-macro>
         <call-macro n="set_gender2.n.adj"><with-param pos="3"/><with-param pos="2"/></call-macro>
         <call-macro n="set_grau_aux2"><with-param pos="1"/><with-param pos="2"/></call-macro>
-        <call-macro n="set_caseFirstWord"><with-param pos="1"/></call-macro>
+        <call-macro n="set_caseFirstWord2">
+          <with-param pos="1"/>
+          <with-param pos="2"/>
+        </call-macro>
         <call-macro n="set_ntags"><with-param pos="3"/></call-macro>
         <choose><when>
           <!-- set_grau_aux2 may have removed the first adj: -->
@@ -915,14 +1043,17 @@ Avoid these in <vblex><inf><pasv>  Make them blive<inf><pres><actv> verb<pp>
         <pattern-item n="adj"/>
         <pattern-item n="adj"/>
         <pattern-item n="ncmp"/>
-        <pattern-item n="n"/>
+        <pattern-item n="n_np"/>
       </pattern>
       <action>
         <let><var n="c_name"/><lit v="adj_adj_n_n"/></let>
         <call-macro n="set_gender2.n.adj"><with-param pos="4"/><with-param pos="1"/></call-macro>
         <call-macro n="set_gender2.n.adj"><with-param pos="4"/><with-param pos="2"/></call-macro>
         <call-macro n="set_grau_aux2"><with-param pos="1"/><with-param pos="2"/></call-macro>
-        <call-macro n="set_caseFirstWord"><with-param pos="1"/></call-macro>
+        <call-macro n="set_caseFirstWord2">
+          <with-param pos="1"/>
+          <with-param pos="2"/>
+        </call-macro>
         <call-macro n="set_ntags"><with-param pos="4"/></call-macro>
         <choose><when>
           <!-- set_grau_aux2 may have removed the first adj: -->
@@ -957,14 +1088,17 @@ Avoid these in <vblex><inf><pasv>  Make them blive<inf><pres><actv> verb<pp>
         <pattern-item n="adj"/>
         <pattern-item n="ncmp"/>
         <pattern-item n="ncmp"/>
-        <pattern-item n="n"/>
+        <pattern-item n="n_np"/>
       </pattern>
       <action>
         <let><var n="c_name"/><lit v="adj_adj_n_n_n"/></let>
         <call-macro n="set_gender2.n.adj"><with-param pos="5"/><with-param pos="1"/></call-macro>
         <call-macro n="set_gender2.n.adj"><with-param pos="5"/><with-param pos="2"/></call-macro>
         <call-macro n="set_grau_aux2"><with-param pos="1"/><with-param pos="2"/></call-macro>
-        <call-macro n="set_caseFirstWord"><with-param pos="1"/></call-macro>
+        <call-macro n="set_caseFirstWord2">
+          <with-param pos="1"/>
+          <with-param pos="2"/>
+        </call-macro>
         <call-macro n="set_ntags"><with-param pos="5"/></call-macro>
         <choose><when>
           <!-- set_grau_aux2 may have removed the first adj: -->
@@ -1001,14 +1135,17 @@ Avoid these in <vblex><inf><pasv>  Make them blive<inf><pres><actv> verb<pp>
         <pattern-item n="ncmp"/>
         <pattern-item n="ncmp"/>
         <pattern-item n="ncmp"/>
-        <pattern-item n="n"/>
+        <pattern-item n="n_np"/>
       </pattern>
       <action>
         <let><var n="c_name"/><lit v="adj_adj_n_n_n_n"/></let>
         <call-macro n="set_gender2.n.adj"><with-param pos="6"/><with-param pos="1"/></call-macro>
         <call-macro n="set_gender2.n.adj"><with-param pos="6"/><with-param pos="2"/></call-macro>
         <call-macro n="set_grau_aux2"><with-param pos="1"/><with-param pos="2"/></call-macro>
-        <call-macro n="set_caseFirstWord"><with-param pos="1"/></call-macro>
+        <call-macro n="set_caseFirstWord2">
+          <with-param pos="1"/>
+          <with-param pos="2"/>
+        </call-macro>
         <call-macro n="set_ntags"><with-param pos="6"/></call-macro>
         <choose><when>
           <!-- set_grau_aux2 may have removed the first adj: -->
@@ -1079,7 +1216,10 @@ Avoid these in <vblex><inf><pasv>  Make them blive<inf><pres><actv> verb<pp>
         <call-macro n="set_gender1.adj"><with-param pos="1"/></call-macro>
         <call-macro n="set_gender1.adj"><with-param pos="2"/></call-macro>
         <call-macro n="set_grau_aux2"><with-param pos="1"/><with-param pos="2"/></call-macro>
-        <call-macro n="set_caseFirstWord"><with-param pos="1"/></call-macro>
+        <call-macro n="set_caseFirstWord2">
+          <with-param pos="1"/>
+          <with-param pos="2"/>
+        </call-macro>
         <choose><when>
           <!-- set_grau_aux2 may have removed the first adj: -->
           <test><equal><clip pos="1" side="tl" part="whole"/><lit v=""/></equal></test>
@@ -1142,6 +1282,45 @@ Avoid these in <vblex><inf><pasv>  Make them blive<inf><pres><actv> verb<pp>
       </action>
     </rule>
 
+    <rule comment="PASVAUX VBLEXPP: vert utgitt → utgives
+                   TODO: check that anything translated from pp in nor can generate a pasv in dan!">
+      <pattern>
+        <pattern-item n="pasvaux"/>
+        <pattern-item n="pp"/>
+      </pattern>
+      <action>
+        <call-macro n="set_caseFirstWord2">
+          <with-param pos="1"/>
+          <with-param pos="2"/>
+        </call-macro>
+        <let><var n="c_name"/><lit v="vblex"/></let>
+        <out>
+          <chunk namefrom="c_name" case="caseFirstWord">
+            <tags><tag><clip pos="1" side="tl" part="tags"/></tag></tags>
+            <lu>
+              <clip pos="2" side="tl" part="lemh"/>
+              <clip pos="2" side="tl" part="a_verb"/>
+              <clip pos="1" side="tl" part="temps"/>
+              <clip pos="1" side="tl" part="voice"/>
+            </lu>
+          </chunk>
+        </out>
+        <choose><when>
+          <test><not><equal><clip pos="2" side="tl" part="lemq"/><lit v=""/></equal></not></test>
+          <out>
+            <chunk name="lemq">
+              <tags><tag><lit-tag v="vblex.lemq"/></tag></tags>
+              <lu><clip pos="2" side="tl" part="lemq"/></lu>
+            </chunk>
+          </out>
+        </when></choose>
+        <choose><when>
+          <test><not><equal><b pos="1"/><lit v=" "/></equal></not></test>
+          <out><b pos="1"/></out>
+        </when></choose>
+      </action>
+    </rule>
+
     <!-- Other classes -->
     <rule comment="DET">
       <pattern>
@@ -1150,12 +1329,13 @@ Avoid these in <vblex><inf><pasv>  Make them blive<inf><pres><actv> verb<pp>
       <action>
         <choose>
           <when>
-            <test><equal caseless="yes"><clip pos="1" side="tl" part="lemh"/><lit v="seg"/></equal></test>
+            <test><equal caseless="yes"><clip pos="1" side="tl" part="lemh"/><lit v="sin"/></equal></test>
             <let><var n="c_name"/><lit v="detsin"/></let>
           </when>
           <otherwise><let><var n="c_name"/><lit v="det"/></let></otherwise>
         </choose>
         <call-macro n="set_caseFirstWord"><with-param pos="1"/></call-macro>
+        <let><clip pos="1" side="tl" part="a_date"/><lit v=""/></let>
         <out>
           <chunk namefrom="c_name" case="caseFirstWord">
             <tags><tag><clip pos="1" side="tl" part="tags"/></tag></tags>
@@ -1230,6 +1410,26 @@ Avoid these in <vblex><inf><pasv>  Make them blive<inf><pres><actv> verb<pp>
       </action>
     </rule>
 
+    <rule comment="DETQNT REMSPC: remove space inserted by pretransfer">
+      <pattern>
+        <pattern-item n="detqnt"/>
+        <pattern-item n="remspc"/>
+      </pattern>
+      <action>
+        <call-macro n="set_caseFirstWord"><with-param pos="1"/></call-macro>
+        <let><clip pos="2" side="tl" part="a_remspc"/><lit v=""/></let>
+        <out>
+          <chunk name="det" case="caseFirstWord">
+            <tags><tag><clip pos="1" side="tl" part="tags"/></tag></tags>
+            <lu><clip pos="1" side="tl" part="whole"/></lu>
+          </chunk>
+          <chunk name="default" case="caseFirstWord">
+            <tags><tag><clip pos="2" side="tl" part="tags"/></tag></tags>
+            <lu><clip pos="2" side="tl" part="whole"/></lu>
+          </chunk>
+        </out>
+      </action>
+    </rule>
 
   </section-rules>
 </transfer>
